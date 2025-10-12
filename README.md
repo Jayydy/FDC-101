@@ -252,15 +252,8 @@ Star Wars Characters:
 4. Test thoroughly on testnet
 5. Submit a PR
 
-##  License
-
-This project is licensed under the MIT License.
-
-
-### Getting Help
-- Check the [Flare Developer Discord](https://discord.gg/flare)
-- Review the [FDC documentation](https://dev.flare.network/fdc/)
-
 ___
 
 Deepwiki: https://deepwiki.com/TheVictorMunoz/FDC-101 
+
+___
