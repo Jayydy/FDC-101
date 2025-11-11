@@ -7,7 +7,56 @@ Documented working examples demonstrating the use of the Flare Data Connector (F
 - **Web2Json Attestations**: Fetch and verify data from external APIs
 - **Weather Insurance**: Real-world insurance contracts using weather data
 - **Proof of Reserves**: Cryptographic proof systems for asset verification
-  
+- **Price Feed Lending Protocol**: Decentralized lending with real-time crypto price feeds
+- **Commodity Supply Chain Tracker**: Supply chain management with verified inventory tracking
+
+
+## New Projects: Lending Protocol & Supply Chain Tracker
+
+### Crypto Price Feed Lending Protocol
+A decentralized lending platform that enables users to deposit FLR tokens as collateral and borrow stablecoins, with loan-to-value ratios determined by real-time price feeds from CoinGecko via FDC attestations.
+
+**Key Features:**
+- Collateral deposit and borrowing with 150% collateralization ratio
+- Automated price updates using FDC-verified CoinGecko API data
+- Repayment and liquidation functionality
+- Real-time health factor calculation
+
+**Contract:** `PriceFeedLendingV1.sol`
+**Script:** `scripts/CryptoPriceFeed.ts`
+**API Integration:** CoinGecko price feed with JQ filter `{price: .flare.usd}`
+
+### Commodity Supply Chain Tracker
+A supply chain management system that tracks commodity shipments with verified inventory data from external APIs, enabling fraud detection and transparent supply chain auditing.
+
+**Key Features:**
+- Owner-controlled supplier registration
+- FDC-verified inventory attestation from supplier APIs
+- Shipment creation with hashed origin/destination for privacy
+- Delivery tracking and fraud reporting
+- Complete audit trail with event logging
+
+**Contract:** `CommodityTrackerV1.sol`
+**Script:** `scripts/CommoditySupplyChain.ts`
+**API Integration:** Supplier inventory API with JQ filter `{quantity: .stock, origin: .location}`
+
+### Running New Projects
+```bash
+# Deploy lending contract
+npx hardhat run scripts/deploy/deployLending.ts --network coston2
+
+# Deploy commodity tracker
+npx hardhat run scripts/deploy/deployCommodityTracker.ts --network coston2
+
+# Update price feed
+npx hardhat run scripts/CryptoPriceFeed.ts --network coston2
+
+# Attest commodity inventory
+npx hardhat run scripts/CommoditySupplyChain.ts --network coston2
+
+# Run tests
+npx hardhat test
+```
 
 ##  Web2Json Attestation Example
 
@@ -183,12 +232,23 @@ yarn hardhat run scripts/weatherInsurance/weatherId/resolvePolicy.ts --network c
 ```
 ├── contracts/
 │   ├── crossChainFdc/          # Cross-chain FDC contracts
-│   └── fdcExample/            # FDC example contracts
+│   ├── fdcExample/            # FDC example contracts
+│   ├── PriceFeedLendingV1.sol # Lending protocol contract
+│   └── CommodityTrackerV1.sol # Supply chain tracker contract
 ├── scripts/
 │   ├── fdcExample/            # Web2Json and FDC examples
 │   ├── weatherInsurance/      # Weather insurance contracts
 │   ├── proofOfReserves/       # Proof of reserves functionality
+│   ├── deploy/                # Deployment scripts
+│   │   ├── deployLending.ts
+│   │   └── deployCommodityTracker.ts
+│   ├── CryptoPriceFeed.ts    # Price feed attestation script
+│   ├── CommoditySupplyChain.ts # Commodity inventory script
 │   └── utils/                 # Utility functions
+│       └── commodityHelpers.ts # Commodity attestation helpers
+├── test/
+│   ├── PriceFeedLendingV1.test.ts
+│   └── CommodityTrackerV1.test.ts
 ├── utils/                     # Network utilities
 └── hardhat.config.ts         # Hardhat configuration
 ```
@@ -207,6 +267,15 @@ PRIVATE_KEY=your_wallet_private_key
 FLARE_RPC_API_KEY=your_flare_api_key
 FLARESCAN_API_KEY=your_flarescan_api_key
 OPEN_WEATHER_API_KEY=your_openweather_api_key
+
+# New Projects
+LENDING_CONTRACT_ADDRESS=
+PRICE_FEED_API_URL=https://api.coingecko.com/api/v3/simple/price?ids=flare&vs_currencies=usd
+COMMODITY_TRACKER_ADDRESS=
+SUPPLIER_API_URL=https://example.com/supplier/inventory
+FDC_API_KEY=
+NETWORK=coston2
+DEPLOYER_PRIVATE_KEY=
 ```
 
 
